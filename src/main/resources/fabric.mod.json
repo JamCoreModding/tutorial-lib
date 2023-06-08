@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "templatemod",
+  "version": "${version}",
+  "name": "Template Mod",
+  "description": "A Fabric mod template",
+  "authors": [
+    "Jamalam"
+  ],
+  "contact": {
+    "sources": "https://github.com/JamCoreModding/TemplateMod",
+    "issues": "https://github.com/JamCoreModding/TemplateMod/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/templatemod/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "io.github.jamalam360.templatemod.TemplateModInit"
+    ]
+  },
+  "mixins": [
+    "templatemod.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "*",
+    "fabric": "*",
+    "jamlib": ">=0.4.0"
+  }
+}
