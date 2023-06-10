@@ -24,17 +24,13 @@
 
 package io.github.jamalam360.tutorial.lib;
 
-import java.util.List;
-
 import io.github.jamalam360.tutorial.lib.stage.EquipItemStage;
-import io.github.jamalam360.tutorial.lib.stage.ManualStage;
 import io.github.jamalam360.tutorial.lib.stage.ObtainAdvancementStage;
 import io.github.jamalam360.tutorial.lib.stage.ObtainItemStage;
 import io.github.jamalam360.tutorial.lib.stage.UseItemStage;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
-import net.minecraft.client.toast.TutorialToast;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -48,46 +44,37 @@ public class TutorialLibTestMod implements ClientModInitializer {
                 Identifier tex = idOf("textures/gui/stages.png");
 
                 Tutorial testTutorial = new Tutorial(
-                                List.of(
-                                                new ObtainItemStage(Items.WOODEN_SWORD, new CustomTutorialToast(tex, 20,
-                                                                0, Text.literal("You'll need a sword!"), null, false),
-                                                                160),
-                                                new ObtainItemStage(Items.LEATHER_HELMET,
-                                                                new TutorialToast(TutorialToast.Type.MOVEMENT_KEYS,
-                                                                                Text.literal("A helmet would be good!"),
-                                                                                null, false),
-                                                                160),
-                                                new EquipItemStage(Items.LEATHER_HELMET,
-                                                                new TutorialToast(TutorialToast.Type.MOUSE,
-                                                                                Text.literal("Nice helmet!"),
-                                                                                Text.literal("Put it on."), false),
-                                                                160),
-                                                new ObtainItemStage(Items.POTION, new TutorialToast(
-                                                                TutorialToast.Type.RECIPE_BOOK,
-                                                                Text.literal("You'll need to drink a potion to finish off this mob."),
-                                                                null, false), 160),
-                                                new UseItemStage(Items.POTION,
-                                                                new TutorialToast(TutorialToast.Type.RECIPE_BOOK,
-                                                                                Text.literal("Drink up!"), null, false),
-                                                                160),
-                                                new ObtainAdvancementStage(new Identifier("adventure/kill_a_mob"),
-                                                                new TutorialToast(TutorialToast.Type.TREE,
-                                                                                Text.literal("Nice work!"),
-                                                                                Text.literal("Now kill him..."), false),
-                                                                160),
-                                                new ManualStage(new TutorialToast(TutorialToast.Type.RECIPE_BOOK,
-                                                                Text.literal("Great!"), null, false), 160)));
+                                new ObtainItemStage(Items.WOODEN_SWORD, new CustomTutorialToast(tex,
+                                                Text.translatable("tutorial.testmod.stage_one.title"),
+                                                Text.translatable("tutorial.testmod.stage_one.description"))),
+                                new ObtainItemStage(Items.LEATHER_HELMET,
+                                                new CustomTutorialToast(tex, 20, 0,
+                                                                Text.translatable("tutorial.testmod.stage_two.title"),
+                                                                Text.translatable(
+                                                                                "tutorial.testmod.stage_two.description"))),
+                                new EquipItemStage(Items.LEATHER_HELMET,
+                                                new CustomTutorialToast(tex, 40, 0,
+                                                                Text.translatable("tutorial.testmod.stage_three.title"),
+                                                                Text.translatable(
+                                                                                "tutorial.testmod.stage_three.description"))),
+                                new ObtainItemStage(Items.POTION, new CustomTutorialToast(tex, 60, 0,
+                                                Text.translatable("tutorial.testmod.stage_four.title"))),
+                                new UseItemStage(Items.POTION,
+                                                new CustomTutorialToast(tex, 80, 0,
+                                                                Text.translatable("tutorial.testmod.stage_five.title"),
+                                                                Text.translatable(
+                                                                                "tutorial.testmod.stage_five.description"))),
+                                new ObtainAdvancementStage(new Identifier("adventure/kill_a_mob"),
+                                                new CustomTutorialToast(tex, 100, 0,
+                                                                Text.literal("Nice work!"),
+                                                                Text.literal("Tutorial Complete")
+                                                                                .styled(s -> s.withItalic(true)))));
 
                 Registry.register(TutorialLib.TUTORIAL_REGISTRY, TutorialLib.idOf("test_tutorial"), testTutorial);
 
                 ClientCommandRegistrationCallback.EVENT.register((dispatcher, r) -> {
-                        dispatcher.register(ClientCommandManager.literal("start_test_tutorial").executes(context -> {
-                                testTutorial.advanceStage();
-                                return 0;
-                        }));
-
                         dispatcher.register(ClientCommandManager.literal("reset_test_tutorial").executes(context -> {
-                                testTutorial.setCurrentStageIndex(-1);
+                                testTutorial.setCurrentStageIndex(0);
                                 return 0;
                         }));
                 });

@@ -6,6 +6,10 @@ import net.minecraft.item.Item;
 public class EquipItemStage extends Stage {
     private final Item item;
 
+    public EquipItemStage(Item item, TutorialToast toast) {
+        this(item, toast, 160);
+    }
+
     public EquipItemStage(Item item, TutorialToast toast, int toastDisplayTicks) {
         super(toast, toastDisplayTicks);
         this.item = item;

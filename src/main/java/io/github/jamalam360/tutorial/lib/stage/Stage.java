@@ -10,6 +10,10 @@ public abstract class Stage {
     private final TutorialToast toast;
     private final int toastDisplayTicks;
 
+    public Stage(TutorialToast toast) {
+        this(toast, 160);
+    }
+
     public Stage(TutorialToast toast, int toastDisplayTicks) {
         this.toast = toast;
         this.toastDisplayTicks = toastDisplayTicks;
@@ -22,11 +26,11 @@ public abstract class Stage {
     @ApiStatus.Internal
     public void onStart(TutorialManager manager) {
         ((ToastDuck) this.toast).setToastVisibility(true);
-        manager.add(this.toast, this.toastDisplayTicks);
     }
 
     @ApiStatus.Internal
     public void onFinish(TutorialManager manager) {
-        manager.remove(this.toast);
+        ((ToastDuck) this.toast).setToastVisibility(true);
+        manager.add(this.toast, this.toastDisplayTicks);
     }
 }

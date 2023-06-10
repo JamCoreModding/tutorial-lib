@@ -6,6 +6,10 @@ import net.minecraft.util.Identifier;
 public class ObtainAdvancementStage extends Stage {
     private final Identifier advancement;
 
+    public ObtainAdvancementStage(Identifier advancement, TutorialToast toast) {
+        this(advancement, toast, 160);
+    }
+
     public ObtainAdvancementStage(Identifier advancement, TutorialToast toast, int toastDisplayTicks) {
         super(toast, toastDisplayTicks);
         this.advancement = advancement;

@@ -1,7 +1,5 @@
 package io.github.jamalam360.tutorial.lib;
 
-import java.util.List;
-
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
@@ -10,20 +8,20 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.tutorial.TutorialManager;
 
 public class Tutorial {
-    private final List<Stage> stages;
-    private int stage = -1;
+    private final Stage[] stages;
+    private int stage = 0;
 
-    public Tutorial(List<Stage> stages) {
+    public Tutorial(Stage... stages) {
         this.stages = stages;
     }
 
     @Nullable
     public Stage getCurrentStage() {
-        if (this.stage == -1) {
+        if (this.stage < 0 || this.stage >= this.stages.length) {
             return null;
         }
 
-        return this.stages.get(this.stage);
+        return this.stages[this.stage];
     }
 
     public int getCurrentStageIndex() {
@@ -36,14 +34,13 @@ public class Tutorial {
     }
 
     public boolean advanceStage() {
-        if (this.getCurrentStageIndex() + 1 >= this.stages.size()) {
+        if (this.getCurrentStageIndex() + 1 >= this.stages.length) {
+            this.getCurrentStage().onFinish(this.getTutorialManager());
+            this.setCurrentStageIndex(this.getCurrentStageIndex() + 1);
             return false;
         }
 
-        if (this.getCurrentStageIndex() != -1) {
-            this.getCurrentStage().onFinish(this.getTutorialManager());
-        }
-
+        this.getCurrentStage().onFinish(this.getTutorialManager());
         this.setCurrentStageIndex(this.getCurrentStageIndex() + 1);
         this.saveGameOptions();
         this.getCurrentStage().onStart(this.getTutorialManager());

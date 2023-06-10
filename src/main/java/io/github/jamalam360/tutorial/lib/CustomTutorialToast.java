@@ -30,6 +30,23 @@ public class CustomTutorialToast extends TutorialToast implements ToastDuck {
     private final int u;
     private final int v;
 
+
+    public CustomTutorialToast(Identifier texture, Text title) {
+        this(texture, title, null);
+    }
+
+    public CustomTutorialToast(Identifier texture, int u, int v, Text title) {
+        this(texture, u, v, title, null);
+    }
+
+    public CustomTutorialToast(Identifier texture, Text title, @Nullable Text description) {
+        this(texture, title, description, false);
+    }
+
+    public CustomTutorialToast(Identifier texture, int u, int v, Text title, @Nullable Text description) {
+        this(texture, u, v, title, null, false);
+    }
+
     public CustomTutorialToast(Identifier texture, Text title, @Nullable Text description,
             boolean hasProgressBar) {
         this(texture, 0, 0, title, description, hasProgressBar);
