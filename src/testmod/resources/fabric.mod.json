@@ -16,10 +16,11 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "io.github.jamalam360.tutorial.lib.TutorialLibTestMod"
+      "io.github.jamalam360.tutorial.lib.testmod.TutorialLibTestMod"
     ]
   },
   "mixins": [
+    "tutorial-lib-test-mod.mixins.json"
   ],
   "depends": {
     "fabricloader": "*",

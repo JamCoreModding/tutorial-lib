@@ -7,10 +7,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import io.github.jamalam360.tutorial.lib.Tutorial;
 import io.github.jamalam360.tutorial.lib.TutorialLib;
+import io.github.jamalam360.tutorial.lib.stage.EquipItemStage;
 import io.github.jamalam360.tutorial.lib.stage.ObtainAdvancementStage;
 import io.github.jamalam360.tutorial.lib.stage.ObtainItemStage;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.AdvancementUpdateS2CPacket;
+import net.minecraft.network.packet.s2c.play.EntityEquipmentUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
 import net.minecraft.util.Identifier;
 

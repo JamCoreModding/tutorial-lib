@@ -44,7 +44,7 @@ public class CustomTutorialToast extends TutorialToast implements ToastDuck {
     }
 
     public CustomTutorialToast(Identifier texture, int u, int v, Text title, @Nullable Text description) {
-        this(texture, u, v, title, null, false);
+        this(texture, u, v, title, description, false);
     }
 
     public CustomTutorialToast(Identifier texture, Text title, @Nullable Text description,

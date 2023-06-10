@@ -6,7 +6,7 @@
     "ClientPlayNetworkHandlerMixin",
     "GameOptionsMixin",
     "ItemStackMixin",
-    "PlayerEntityMixin",
+    "LivingEntityMixin",
     "TutorialToastMixin"
   ],
   "injectors": {
