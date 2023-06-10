@@ -22,19 +22,34 @@
  * THE SOFTWARE.
  */
 
-package io.github.jamalam360.templatemod;
+package io.github.jamalam360.tutorial.lib;
 
-import io.github.jamalam360.jamlib.log.JamLibLogger;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.jetbrains.annotations.ApiStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
-public class TemplateModInit implements ModInitializer {
-    public static final String MOD_ID = "templatemod";
-    public static final JamLibLogger LOGGER = JamLibLogger.getLogger(MOD_ID);
+public class TutorialLib implements ModInitializer {
+    public static final String MOD_ID = "tutorial-lib";
+    public static final Registry<Tutorial> TUTORIAL_REGISTRY = FabricRegistryBuilder
+            .createSimple(Tutorial.class, idOf("tutorial")).buildAndRegister();
+    private static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     @Override
     public void onInitialize() {
-        LOGGER.logInitialize();
+        LOGGER.info("Initialized Tutorial Lib");
+    }
+
+    @ApiStatus.Internal
+    public static List<Tutorial> getTutorials() {
+        return TUTORIAL_REGISTRY.stream().collect(Collectors.toList());
     }
 
     public static Identifier idOf(String path) {

@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "io.github.jamalam360.tutorial.lib.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "client": [
+    "ClientPlayNetworkHandlerMixin",
+    "GameOptionsMixin",
+    "ItemStackMixin",
+    "PlayerEntityMixin",
+    "TutorialToastMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

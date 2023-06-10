@@ -1,10 +1,31 @@
-# JamCore Template Mod
+# Tutorial Lib
 
-This is the (opinionated) template used by JamCore to create our mods. The
-repo contains an MIT license file for ease of use, as that's what our mods use,
-but you are free to use the template without the license.
+A Fabric library for making use of the vanilla tutorial toast system
 
-To automatically initialise the template, use [Deno](https://deno.land/),
-and run the command `deno run -A --unstable scripts/template.ts`.
+## TODO
 
-To see available properties, see `gradle.properties`.
+- Concept of `AdvanceCriteria`
+    - `Manual`
+    - `ObtainItem`
+    - `EquipItem`
+    - `UseItem`
+- ~~Storage of stages in `GameOptions`~~
+- ~~`Tutorial` manager class~~
+    - ~~Registered in a registry~~
+    - ~~Has list of stages~~
+- ~~`Stage`~~
+    - ~~`AdvanceCriteria`~~
+    - ~~`Toast`~~
+        - ~~`CustomTutorialToast`~~
+            - ~~Takes custom texture~~
+    - ~~`advanceManually()`~~
+        - ~~Throws if the current stage isn't a `Manual` `AdvanceCriteria`~~
+- ~~get rid of `AdvanceCriteria` and instead use subclasses of `Stage`~~
+    - ~~i.e. something like `if (tutorial.getCurrentStage() instanceof ObtainItemStage stage)`~~
+- ~~actually support obtain equip use item~~
+- ~~advancement advanced stage~~
+- ~~set stage progress~~
+- ~~testmod~~
+- flesh out test mod
+- javadocs and documentation
+- test on vanilla dedicated server

@@ -1,5 +1,5 @@
 plugins {
-    id("fabric-loom") version "1.0-SNAPSHOT"
+    id("fabric-loom") version "1.2-SNAPSHOT"
     id("io.github.juuxel.loom-quiltflower") version "1.+"
     id("io.github.p03w.machete") version "1.+"
     id("org.cadixdev.licenser") version "0.6.+"
@@ -41,6 +41,43 @@ dependencies {
 
     modImplementation(libs.bundles.fabric)
     modApi(libs.bundles.required)
-    modImplementation(libs.bundles.optional)
     modLocalRuntime(libs.bundles.runtime)
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+tasks.withType(Javadoc::class.java) {
+    exclude("**/mixin/**")
+}
+
+sourceSets {
+    val main = this.getByName("main")
+
+    create("testmod") {
+        this.compileClasspath += main.compileClasspath
+        this.compileClasspath += main.output
+        this.runtimeClasspath += main.runtimeClasspath
+        this.runtimeClasspath += main.output
+
+        java {
+            // This is required for some reason
+            resources.srcDir("src/testmod")
+        }
+    }
+}
+
+loom {
+    runtimeOnlyLog4j.set(true)
+    accessWidenerPath.set(project.file("src/main/resources/tutoriallib.accesswidener"))
+
+    runs {
+        create("testClient") {
+            client()
+            name("Testmod Client")
+            source(sourceSets.getByName("testmod"))
+        }
+    }
 }

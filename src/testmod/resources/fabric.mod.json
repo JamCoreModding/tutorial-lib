@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "tutorial-lib",
-  "version": "${version}",
-  "name": "Tutorial Lib",
+  "id": "tutorial-lib-test-mod",
+  "version": "UNVERSIONED",
+  "name": "Tutorial Lib Test Mod",
   "description": "A Fabric library for making use of the vanilla tutorial toast system",
   "authors": [
     "Jamalam"
@@ -12,16 +12,14 @@
     "issues": "https://github.com/JamCoreModding/tutorial-lib/issues"
   },
   "license": "MIT",
-  "icon": "assets/tutorial-lib/icon.png",
+  "icon": "assets/tutorial-lib-test-mod/icon.png",
   "environment": "*",
-  "accessWidener": "tutoriallib.accesswidener",
   "entrypoints": {
-    "main": [
-      "io.github.jamalam360.tutorial.lib.TutorialLib"
+    "client": [
+      "io.github.jamalam360.tutorial.lib.TutorialLibTestMod"
     ]
   },
   "mixins": [
-    "tutorial-lib.mixins.json"
   ],
   "depends": {
     "fabricloader": "*",
