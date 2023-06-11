@@ -1,9 +1,5 @@
 ## Changelog
 
-### Features
+No changes other than tag update.
 
-### Fixes
-
-Closed issues: None.
-
-[Full Changelog](https://github.com/JamCoreModding/tutorial-lib/compare/...)
+[Full Changelog](https://github.com/JamCoreModding/tutorial-lib/compare/1.0.0...1.0.1+1.19.2)

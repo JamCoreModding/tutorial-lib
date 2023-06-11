@@ -49,8 +49,14 @@ java {
     withJavadocJar()
 }
 
-tasks.withType(Javadoc::class.java) {
-    exclude("**/mixin/**")
+tasks {
+    withType(Javadoc::class.java) {
+        exclude("**/mixin/**")
+    }
+
+    getByName("generateMetadataFileForMavenPublication") {
+        dependsOn("optimizeOutputsOfRemapJar")
+    }
 }
 
 sourceSets {
