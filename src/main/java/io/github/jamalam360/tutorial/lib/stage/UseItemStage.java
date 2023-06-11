@@ -3,6 +3,9 @@ package io.github.jamalam360.tutorial.lib.stage;
 import net.minecraft.client.toast.TutorialToast;
 import net.minecraft.item.Item;
 
+/**
+ * A stage that is advanced when a specific item is used.
+ */
 public class UseItemStage extends Stage {
     private final Item item;
 

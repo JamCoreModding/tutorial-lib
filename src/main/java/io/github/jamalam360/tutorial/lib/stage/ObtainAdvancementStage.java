@@ -3,6 +3,9 @@ package io.github.jamalam360.tutorial.lib.stage;
 import net.minecraft.client.toast.TutorialToast;
 import net.minecraft.util.Identifier;
 
+/**
+ * A stage that is advanced when a specific advancement is obtained.
+ */
 public class ObtainAdvancementStage extends Stage {
     private final Identifier advancement;
 

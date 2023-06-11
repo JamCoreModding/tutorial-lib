@@ -36,6 +36,9 @@ import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+/**
+ * @see Tutorial
+ */
 public class TutorialLib implements ModInitializer {
     public static final String MOD_ID = "tutorial-lib";
     public static final Registry<Tutorial> TUTORIAL_REGISTRY = FabricRegistryBuilder

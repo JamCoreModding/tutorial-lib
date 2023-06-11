@@ -13,9 +13,11 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
-// This class is basically a copy of `TutorialToast` which allows custom textures.
-// Textures must be 256x256.
-// It has to extend `TutorialToast` because `TutorialManager` only accepts `TutorialToast`s.
+/**
+ * A copy of {@link TutorialToast} which allows custom textures.
+ *
+ * @apiNote textures must be 256x256
+ */
 public class CustomTutorialToast extends TutorialToast implements ToastDuck {
 
     private final Text title;

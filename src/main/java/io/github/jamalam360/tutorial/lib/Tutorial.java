@@ -7,6 +7,11 @@ import io.github.jamalam360.tutorial.lib.stage.Stage;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.tutorial.TutorialManager;
 
+/**
+ * Holds the stages and state of an in-game tutorial.
+ *
+ * @see Stage
+ */
 public class Tutorial {
     private final Stage[] stages;
     private int stage = 0;
