@@ -1,7 +1,7 @@
 # Tutorial Lib
 
-A Fabric library for making use of the vanilla tutorial toast system
+[![Read the Documentation](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@2/assets/cozy/documentation/ghpages_vector.svg)](https://docs.jamalam.tech/tutorial-lib/about/)
 
-## TODO
+> A Fabric library for making use of the vanilla tutorial toast system.
 
-- javadocs and documentation
+All documentation is available on [docs.jamalam.tech](https://docs.jamalam.tech/tutorial-lib/about/)
