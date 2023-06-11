@@ -15,7 +15,7 @@ import net.minecraft.client.tutorial.TutorialManager;
  *     <li>
  *         In a relevant place (such as an event or mixin), call:
  *         <code>
- *              if (YourMod.YOUR_TUTORIAL.getCurrentStage() instanceof YourStage && /* check logic \*\/) {
+ *              if (YourMod.YOUR_TUTORIAL.getCurrentStage() instanceof YourStage &amp;&amp; /* check logic \*\/) {
                     YourMod.YOUR_TUTORIAL.advanceStage();
                 }
  *         </code>

@@ -14,9 +14,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 /**
- * A copy of {@link TutorialToast} which allows custom textures.
- *
- * @apiNote textures must be 256x256
+ * A copy of {@link TutorialToast} which allows custom textures. Textures must be 256x256.
  */
 public class CustomTutorialToast extends TutorialToast implements ToastDuck {
 
