@@ -1,4 +1,4 @@
-name: Update Licenses and Build
+name: Build
 
 on: [
   push,
