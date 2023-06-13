@@ -31,6 +31,7 @@ import net.minecraft.item.Item;
  * A stage that is advanced when a specific item is obtained.
  */
 public class ObtainItemStage extends Stage {
+
     private final Item item;
 
     public ObtainItemStage(Item item, TutorialToast toast) {

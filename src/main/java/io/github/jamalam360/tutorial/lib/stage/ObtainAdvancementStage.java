@@ -31,6 +31,7 @@ import net.minecraft.util.Identifier;
  * A stage that is advanced when a specific advancement is obtained.
  */
 public class ObtainAdvancementStage extends Stage {
+
     private final Identifier advancement;
 
     public ObtainAdvancementStage(Identifier advancement, TutorialToast toast) {

@@ -27,6 +27,7 @@ package io.github.jamalam360.tutorial.lib.testmod;
 import io.github.jamalam360.tutorial.lib.CustomTutorialToast;
 import io.github.jamalam360.tutorial.lib.Tutorial;
 import io.github.jamalam360.tutorial.lib.TutorialLib;
+import io.github.jamalam360.tutorial.lib.stage.DelayedStage;
 import io.github.jamalam360.tutorial.lib.stage.EquipItemStage;
 import io.github.jamalam360.tutorial.lib.stage.ObtainAdvancementStage;
 import io.github.jamalam360.tutorial.lib.stage.ObtainItemStage;
@@ -40,46 +41,59 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class TutorialLibTestMod implements ClientModInitializer {
-        public static final String MOD_ID = "tutorial-lib-test-mod";
-        public static final Identifier TEX = idOf("textures/gui/stages.png");
-        public static final Tutorial TUTORIAL = new Tutorial(
-                new ObtainSwordItemStage(new CustomTutorialToast(TEX,
-                                Text.translatable("tutorial.testmod.stage_one.title"),
-                                Text.translatable("tutorial.testmod.stage_one.description"))),
-                new ObtainItemStage(Items.LEATHER_HELMET,
-                                new CustomTutorialToast(TEX, 20, 0,
-                                                Text.translatable("tutorial.testmod.stage_two.title"))),
-                new EquipItemStage(Items.LEATHER_HELMET,
-                                new CustomTutorialToast(TEX, 40, 0,
-                                                Text.translatable("tutorial.testmod.stage_three.title"),
-                                                Text.translatable(
-                                                                "tutorial.testmod.stage_three.description"))),
-                new ObtainItemStage(Items.POTION, new CustomTutorialToast(TEX, 60, 0,
-                                Text.translatable("tutorial.testmod.stage_four.title"))),
-                new UseItemStage(Items.POTION,
-                                new CustomTutorialToast(TEX, 80, 0,
-                                                Text.translatable("tutorial.testmod.stage_five.title"),
-                                                Text.translatable(
-                                                                "tutorial.testmod.stage_five.description"))),
-                new ObtainAdvancementStage(new Identifier("adventure/kill_a_mob"),
-                                new CustomTutorialToast(TEX, 100, 0,
-                                                Text.literal("Nice work!"),
-                                                Text.literal("Tutorial Complete")
-                                                                .styled(s -> s.withItalic(true)))));
 
-        @Override
-        public void onInitializeClient() {
-                Registry.register(TutorialLib.TUTORIAL_REGISTRY, TutorialLib.idOf("test_tutorial"), TUTORIAL);
+    public static final String MOD_ID = "tutorial-lib-test-mod";
+    public static final Identifier TEX = idOf("textures/gui/stages.png");
+    public static final Tutorial TUTORIAL = new Tutorial(
+//          new ObtainSwordItemStage(new CustomTutorialToast(TEX,
+//                Text.translatable("tutorial.testmod.stage_one.title"),
+//                Text.translatable("tutorial.testmod.stage_one.description"))),
+//          new ObtainItemStage(Items.LEATHER_HELMET,
+//                new CustomTutorialToast(TEX, 20, 0,
+//                      Text.translatable("tutorial.testmod.stage_two.title"))),
+//          new EquipItemStage(Items.LEATHER_HELMET,
+//                new CustomTutorialToast(TEX, 40, 0,
+//                      Text.translatable("tutorial.testmod.stage_three.title"),
+//                      Text.translatable(
+//                            "tutorial.testmod.stage_three.description"))),
+          new ObtainItemStage(Items.POTION, new CustomTutorialToast(TEX, 60, 0,
+                Text.translatable("tutorial.testmod.stage_four.title"))),
+//          new UseItemStage(Items.POTION,
+//                new CustomTutorialToast(TEX, 80, 0,
+//                      Text.translatable("tutorial.testmod.stage_five.title"),
+//                      Text.translatable(
+//                            "tutorial.testmod.stage_five.description"))),
+//          new ObtainAdvancementStage(new Identifier("adventure/kill_a_mob"),
+//                new CustomTutorialToast(TEX, 100, 0,
+//                      Text.literal("Nice work!"),
+//                      Text.literal("Tutorial Complete")
+//                            .styled(s -> s.withItalic(true)))),
 
-                ClientCommandRegistrationCallback.EVENT.register((dispatcher, r) -> {
-                        dispatcher.register(ClientCommandManager.literal("reset_test_tutorial").executes(context -> {
-                                TUTORIAL.setCurrentStageIndex(0);
-                                return 0;
-                        }));
-                });
-        }
+          new DelayedStage(new CustomTutorialToast(TEX, 100, 0, Text.literal("Delayed by 10 seconds!"), Text.literal("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"), true), 200));
 
-        public static Identifier idOf(String path) {
-                return new Identifier(MOD_ID, path);
-        }
+    public static Identifier idOf(String path) {
+        return new Identifier(MOD_ID, path);
+    }
+
+    @Override
+    public void onInitializeClient() {
+        Registry.register(TutorialLib.TUTORIAL_REGISTRY, TutorialLib.idOf("test_tutorial"), TUTORIAL);
+
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, r) -> {
+            dispatcher.register(ClientCommandManager.literal("reset_test_tutorial").executes(context -> {
+                TUTORIAL.setCurrentStageIndex(0);
+                return 0;
+            }));
+
+            dispatcher.register(ClientCommandManager.literal("advance_progress").executes(context -> {
+                if (TUTORIAL.getCurrentStage().getToast() instanceof CustomTutorialToast toast) {
+                    if (toast.hasProgressBar()) {
+                        toast.setProgress(toast.getProgress() + 0.5F);
+                    }
+                }
+
+                return 0;
+            }));
+        });
+    }
 }

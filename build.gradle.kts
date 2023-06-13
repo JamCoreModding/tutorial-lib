@@ -20,7 +20,7 @@ repositories {
             Pair("https://maven.terraformersmc.com/releases", listOf("com.terraformersmc")),
             Pair("https://api.modrinth.com/maven", listOf("maven.modrinth")),
             Pair("https://maven.jamalam.tech/releases", listOf("io.github.jamalam360")),
-            Pair("https://maven.quiltmc.org/repository/release", listOf("org.quiltmc")),
+            Pair("https://maven.quiltmc.org/repository/release", listOf("org.quiltmc", "org.quiltmc.unpick")),
         )
 
     for (mavenPair in mavenUrls) {

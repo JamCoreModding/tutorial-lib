@@ -1,12 +1,12 @@
 {
-    "tutorial.testmod.stage_one.title": "Nice!",
-    "tutorial.testmod.stage_one.description": "You'll need armor too!",
-    "tutorial.testmod.stage_two.title": "Stylish!",
-    "tutorial.testmod.stage_three.title": "Looking good!",
-    "tutorial.testmod.stage_three.description": "Remember a potion",
-    "tutorial.testmod.stage_four.title": "Drink up.",
-    "tutorial.testmod.stage_five.title": "You're ready to go!",
-    "tutorial.testmod.stage_five.description": "Good luck!",
-    "tutorial.testmod.stage_six.title": "You killed him!",
-    "tutorial.testmod.stage_six.description": "Poor guy..."
+  "tutorial.testmod.stage_one.title": "Nice! This is a long title. It should wrap over multiple lines.",
+  "tutorial.testmod.stage_one.description": "You'll need armor too!",
+  "tutorial.testmod.stage_two.title": "Stylish!",
+  "tutorial.testmod.stage_three.title": "Looking good! This is a long description! It should wrap over multiple lines.",
+  "tutorial.testmod.stage_three.description": "Remember a potion",
+  "tutorial.testmod.stage_four.title": "Drink up.",
+  "tutorial.testmod.stage_five.title": "You're ready to go! Remember that both titles",
+  "tutorial.testmod.stage_five.description": "Good luck! ...and descriptions can be long and they should both wrap to the next line.",
+  "tutorial.testmod.stage_six.title": "You killed him!",
+  "tutorial.testmod.stage_six.description": "Poor guy................................................................................."
 }

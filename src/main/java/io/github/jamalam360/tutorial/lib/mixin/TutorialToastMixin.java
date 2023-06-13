@@ -24,15 +24,15 @@
 
 package io.github.jamalam360.tutorial.lib.mixin;
 
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-
 import io.github.jamalam360.tutorial.lib.ToastDuck;
 import net.minecraft.client.toast.Toast;
 import net.minecraft.client.toast.TutorialToast;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(TutorialToast.class)
 public abstract class TutorialToastMixin implements ToastDuck {
+
     @Shadow
     private Toast.Visibility visibility;
 

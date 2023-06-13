@@ -24,36 +24,45 @@
 
 package io.github.jamalam360.tutorial.lib;
 
-import org.jetbrains.annotations.Nullable;
-
 import com.mojang.blaze3d.systems.RenderSystem;
-
+import java.util.List;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.toast.Toast;
 import net.minecraft.client.toast.ToastManager;
 import net.minecraft.client.toast.TutorialToast;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import org.jetbrains.annotations.Nullable;
 
 /**
- * A copy of {@link TutorialToast} which allows custom textures. Textures must be 256x256.
+ * A copy of {@link TutorialToast} which allows custom textures and dynamically expands to fit its content.
+ * Textures must be 256x256.
  */
 public class CustomTutorialToast extends TutorialToast implements ToastDuck {
+
+    private static final int TEXT_LEFT_MARGIN = 30;
+    private static final int TEXT_RIGHT_MARGIN = 10;
 
     private final Text title;
     @Nullable
     private final Text description;
-    private Toast.Visibility visibility = Toast.Visibility.SHOW;
-    private long lastTime;
-    private float lastProgress;
-    private float progress;
     private final boolean hasProgressBar;
     private final Identifier texture;
     private final int u;
     private final int v;
-
+    @Nullable
+    private List<OrderedText> wrappedTitle = null;
+    @Nullable
+    private List<OrderedText> wrappedDescription = null;
+    private Toast.Visibility visibility = Toast.Visibility.SHOW;
+    private long lastTime;
+    private float lastProgress;
+    private float progress;
 
     public CustomTutorialToast(Identifier texture, Text title) {
         this(texture, title, null);
@@ -71,13 +80,11 @@ public class CustomTutorialToast extends TutorialToast implements ToastDuck {
         this(texture, u, v, title, description, false);
     }
 
-    public CustomTutorialToast(Identifier texture, Text title, @Nullable Text description,
-            boolean hasProgressBar) {
+    public CustomTutorialToast(Identifier texture, Text title, @Nullable Text description, boolean hasProgressBar) {
         this(texture, 0, 0, title, description, hasProgressBar);
     }
 
-    public CustomTutorialToast(Identifier texture, int u, int v, Text title, @Nullable Text description,
-            boolean hasProgressBar) {
+    public CustomTutorialToast(Identifier texture, int u, int v, Text title, @Nullable Text description, boolean hasProgressBar) {
         // Type.MOUSE is a dummy placeholder.
         super(Type.MOUSE, title, description, hasProgressBar);
 
@@ -91,25 +98,47 @@ public class CustomTutorialToast extends TutorialToast implements ToastDuck {
 
     @Override
     public Toast.Visibility draw(MatrixStack matrices, ToastManager manager, long startTime) {
+        if (this.wrappedTitle == null) {
+            this.wrappedTitle = MinecraftClient.getInstance().textRenderer.wrapLines(this.title, 160 - TEXT_LEFT_MARGIN - TEXT_RIGHT_MARGIN);
+        }
+
+        if (this.wrappedDescription == null) {
+            this.wrappedDescription = this.description == null ? List.of() : MinecraftClient.getInstance().textRenderer.wrapLines(this.description, 160 - TEXT_LEFT_MARGIN - TEXT_RIGHT_MARGIN);
+        }
+
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, TEXTURE);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        manager.drawTexture(matrices, 0, 0, 0, 96, this.getWidth(), this.getHeight());
+
+        if (this.wrappedTitle.size() == 1 && this.wrappedDescription.size() <= 1) {
+            manager.drawTexture(matrices, 0, 0, 0, 32, 160, 32);
+        } else {
+            int height = this.getHeight();
+            int m = Math.min(4, height - 28);
+            this.renderBackgroundRow(matrices, manager, 0, 0, 28);
+
+            for (int n = 28; n < height - m; n += 10) {
+                this.renderBackgroundRow(matrices, manager, 16, n, Math.min(16, height - n - m));
+            }
+
+            this.renderBackgroundRow(matrices, manager, 32 - m, height - m, m);
+        }
+
+        for (int i = 0; i < wrappedTitle.size(); i++) {
+            manager.getGame().textRenderer.draw(matrices, wrappedTitle.get(i), TEXT_LEFT_MARGIN, 7 + i * 12, -11534256);
+        }
+
+        for (int i = 0; i < wrappedDescription.size(); i++) {
+            manager.getGame().textRenderer.draw(matrices, wrappedDescription.get(i), TEXT_LEFT_MARGIN, 8 + wrappedTitle.size() * 12 + i * 12, -16777216);
+        }
 
         RenderSystem.setShaderTexture(0, this.texture);
         manager.drawTexture(matrices, 6, 6, this.u, this.v, 20, 20);
         RenderSystem.setShaderTexture(0, TEXTURE);
 
-        if (this.description == null) {
-            manager.getGame().textRenderer.draw(matrices, this.title, 30.0F, 12.0F, -11534256);
-        } else {
-            manager.getGame().textRenderer.draw(matrices, this.title, 30.0F, 7.0F, -11534256);
-            manager.getGame().textRenderer.draw(matrices, this.description, 30.0F, 18.0F, -16777216);
-        }
-
         if (this.hasProgressBar) {
-            DrawableHelper.fill(matrices, 3, 28, 157, 29, -1);
-            float f = MathHelper.clampedLerp(this.lastProgress, this.progress,
-                    (float) (startTime - this.lastTime) / 100.0F);
+            DrawableHelper.fill(matrices, 3, 28 + (this.getHeight() - 32), 157, 29 + (this.getHeight() - 32), -1);
+            float f = MathHelper.clampedLerp(this.lastProgress, this.progress, (float) (startTime - this.lastTime) / 100.0F);
             int i;
             if (this.progress >= this.lastProgress) {
                 i = -16755456;
@@ -117,12 +146,28 @@ public class CustomTutorialToast extends TutorialToast implements ToastDuck {
                 i = -11206656;
             }
 
-            DrawableHelper.fill(matrices, 3, 28, (int) (3.0F + 154.0F * f), 29, i);
+            DrawableHelper.fill(matrices, 3, 28 + (this.getHeight() - 32), (int) (3.0F + 154.0F * f), 29 + (this.getHeight() - 32), i);
             this.lastProgress = f;
             this.lastTime = startTime;
         }
 
         return this.visibility;
+    }
+
+    private void renderBackgroundRow(MatrixStack matrices, ToastManager manager, int vOffset, int y, int vHeight) {
+        int uWidth = vOffset == 0 ? 20 : 5;
+        manager.drawTexture(matrices, 0, y, 0, 32 + vOffset, uWidth, vHeight);
+
+        for (int o = uWidth; o < 160 - 60; o += 64) {
+            manager.drawTexture(matrices, o, y, 32, 32 + vOffset, Math.min(64, 160 - o - 60), vHeight);
+        }
+
+        manager.drawTexture(matrices, 160 - 60, y, 160 - 60, 32 + vOffset, 60, vHeight);
+    }
+
+    @Override
+    public int getHeight() {
+        return 10 + (this.wrappedTitle == null ? 0 : this.wrappedTitle.size() * 12) + (this.wrappedDescription == null ? 0 : this.wrappedDescription.size() * 12);
     }
 
     public void show() {
@@ -131,6 +176,14 @@ public class CustomTutorialToast extends TutorialToast implements ToastDuck {
 
     public void hide() {
         this.visibility = Toast.Visibility.HIDE;
+    }
+
+    public boolean hasProgressBar() {
+        return this.hasProgressBar;
+    }
+
+    public float getProgress() {
+        return this.progress;
     }
 
     public void setProgress(float progress) {

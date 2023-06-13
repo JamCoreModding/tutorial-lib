@@ -34,9 +34,9 @@ public class ObtainSwordItemStage extends Stage {
     public ObtainSwordItemStage(TutorialToast toast) {
         super(toast);
     }
-    
+
     public boolean matches(Item item) {
         return item instanceof SwordItem;
     }
-    
+
 }

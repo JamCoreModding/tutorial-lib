@@ -24,15 +24,13 @@
 
 package io.github.jamalam360.tutorial.lib.stage;
 
-import org.jetbrains.annotations.ApiStatus;
-
 import io.github.jamalam360.tutorial.lib.ToastDuck;
 import net.minecraft.client.toast.TutorialToast;
 import net.minecraft.client.tutorial.TutorialManager;
+import org.jetbrains.annotations.ApiStatus;
 
 /**
- * An individual stage in a tutorial. See {@code io.github.jamalam360.tutorial.lib.stage}.
- * If you wish to create a custom stage:
+ * An individual stage in a tutorial. See {@code io.github.jamalam360.tutorial.lib.stage}. If you wish to create a custom stage:
  *
  * <ol>
  *     <li>Create a class extending {@link Stage} that holds any required state (such as a required {@link net.minecraft.item.Item}).</li>
@@ -40,13 +38,14 @@ import net.minecraft.client.tutorial.TutorialManager;
  *         In a relevant place (such as an event or mixin), call:
  *         <code>
  *              if (YourMod.YOUR_TUTORIAL.getCurrentStage() instanceof YourStage &amp;&amp; /* check logic \*\/) {
-                    YourMod.YOUR_TUTORIAL.advanceStage();
-                }
+ * YourMod.YOUR_TUTORIAL.advanceStage();
+ * }
  *         </code>
  *     </li>
  * </ol>
  */
 public abstract class Stage {
+
     private final TutorialToast toast;
     private final int toastDisplayTicks;
 

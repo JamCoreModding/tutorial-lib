@@ -24,31 +24,28 @@
 
 package io.github.jamalam360.tutorial.lib;
 
+import io.github.jamalam360.tutorial.lib.stage.DelayedStage;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import org.jetbrains.annotations.ApiStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 /**
  * @see Tutorial
  */
 public class TutorialLib implements ModInitializer {
+
     public static final String MOD_ID = "tutorial-lib";
     public static final Registry<Tutorial> TUTORIAL_REGISTRY = FabricRegistryBuilder
-            .createSimple(Tutorial.class, idOf("tutorial")).buildAndRegister();
+          .createSimple(Tutorial.class, idOf("tutorial")).buildAndRegister();
     private static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
-    @Override
-    public void onInitialize() {
-        LOGGER.info("Initialized Tutorial Lib");
-    }
 
     @ApiStatus.Internal
     public static List<Tutorial> getTutorials() {
@@ -57,5 +54,19 @@ public class TutorialLib implements ModInitializer {
 
     public static Identifier idOf(String path) {
         return new Identifier(MOD_ID, path);
+    }
+
+    @Override
+    public void onInitialize() {
+        ClientTickEvents.END_WORLD_TICK.register(world -> {
+            for (Tutorial tutorial : getTutorials()) {
+                if (tutorial.getCurrentStage() instanceof DelayedStage delayedStage
+                    && MinecraftClient.getInstance().world.getTime() >= delayedStage.getEndTime()) {
+                    tutorial.advanceStage();
+                }
+            }
+        });
+
+        LOGGER.info("Initialized Tutorial Lib");
     }
 }

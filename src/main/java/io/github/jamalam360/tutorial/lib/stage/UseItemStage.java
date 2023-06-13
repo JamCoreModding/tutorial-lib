@@ -31,6 +31,7 @@ import net.minecraft.item.Item;
  * A stage that is advanced when a specific item is used.
  */
 public class UseItemStage extends Stage {
+
     private final Item item;
 
     public UseItemStage(Item item, TutorialToast toast) {
