@@ -1,9 +1,9 @@
 [versions]
-minecraft = "1.19.2"
-quilt-mappings = "1.19.2+build.22"
+minecraft = "1.19.3"
+quilt-mappings = "1.19.3+build.28"
 fabric-loader = "0.14.11"
-fabric-api = "0.76.0+1.19.2"
-mod-menu = "4.2.0-beta.2"
+fabric-api = "0.76.1+1.19.3"
+mod-menu = "5.1.0-beta.4"
 lazy-dfu = "0.1.3"
 
 [libraries]

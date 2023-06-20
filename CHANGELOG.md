@@ -1,9 +1,3 @@
 ## Changelog
 
-### Features
-
-### Fixes
-
-Closed issues: None.
-
-[Full Changelog](https://github.com/JamCoreModding/tutorial-lib/compare/...)
+- Port to 1.19.3

@@ -38,7 +38,7 @@ import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallba
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.registry.Registry;
 
 public class TutorialLibTestMod implements ClientModInitializer {
 
@@ -69,7 +69,7 @@ public class TutorialLibTestMod implements ClientModInitializer {
 //                      Text.literal("Tutorial Complete")
 //                            .styled(s -> s.withItalic(true)))),
 
-          new DelayedStage(new CustomTutorialToast(TEX, 100, 0, Text.literal("Delayed by 10 seconds!"), Text.literal("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"), true), 200));
+          new DelayedStage(200, new CustomTutorialToast(TEX, 100, 0, Text.literal("Delayed by 10 seconds!"), Text.literal("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"), true)));
 
     public static Identifier idOf(String path) {
         return new Identifier(MOD_ID, path);

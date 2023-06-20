@@ -12,20 +12,11 @@ public class DelayedStage extends Stage {
     private final int delay;
     private long startTime;
 
-    /**
-     * @deprecated Use the other constructors
-     */
-    @Deprecated(forRemoval = true)
-
-    public DelayedStage(TutorialToast toast, int delay) {
-        this(delay, toast);
-    }
-    
     public DelayedStage(int delay, TutorialToast toast) {
         super(toast);
         this.delay = delay;
     }
-it in
+
     public DelayedStage(TutorialToast toast, int delay, int toastDisplayTicks) {
         super(toast, toastDisplayTicks);
         this.delay = delay;
