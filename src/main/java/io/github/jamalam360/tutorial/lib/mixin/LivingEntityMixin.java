@@ -38,7 +38,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
 
-    @Inject(method = "method_6116", at = @At("HEAD"))
+    @Inject(method = "onEquipItem", at = @At("HEAD"))
     private void tutoriallib$triggerEquipItemStages(EquipmentSlot slot, ItemStack oldStack, ItemStack newStack, CallbackInfo ci) {
         for (Tutorial tutorial : TutorialLib.getTutorials()) {
             if (tutorial.getCurrentStage() instanceof EquipItemStage equipItemStage

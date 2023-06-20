@@ -50,7 +50,7 @@ public abstract class ClientPlayNetworkHandlerMixin {
         }
     }
 
-    @Inject(method = "onAdvancements", at = @At("HEAD"))
+    @Inject(method = "onAdvancementUpdate", at = @At("HEAD"))
     private void tutoriallib$triggerAdvancementStages(AdvancementUpdateS2CPacket packet, CallbackInfo ci) {
         for (Identifier advancement : packet.getAdvancementsToEarn().keySet()) {
             for (Tutorial tutorial : TutorialLib.getTutorials()) {
