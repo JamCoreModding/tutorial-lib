@@ -1,9 +1,3 @@
 ## Changelog
 
-### Features
-
-### Fixes
-
-Closed issues: None.
-
-[Full Changelog](https://github.com/JamCoreModding/tutorial-lib/compare/...)
+- Fix final tutorial stage constantly triggering after it has already been finished.

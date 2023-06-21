@@ -25,7 +25,7 @@ public class DelayedStage extends Stage {
         super(toast);
         this.delay = delay;
     }
-it in
+
     public DelayedStage(TutorialToast toast, int delay, int toastDisplayTicks) {
         super(toast, toastDisplayTicks);
         this.delay = delay;
