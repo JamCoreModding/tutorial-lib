@@ -27,7 +27,9 @@ package io.github.jamalam360.tutorial.lib;
 import io.github.jamalam360.tutorial.lib.stage.DelayedStage;
 import java.util.List;
 import java.util.stream.Collectors;
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.client.MinecraftClient;
@@ -40,7 +42,8 @@ import org.slf4j.LoggerFactory;
 /**
  * @see Tutorial
  */
-public class TutorialLib implements ModInitializer {
+@Environment(EnvType.CLIENT)
+public class TutorialLib implements ClientModInitializer {
 
     public static final String MOD_ID = "tutorial-lib";
     public static final Registry<Tutorial> TUTORIAL_REGISTRY = FabricRegistryBuilder
@@ -57,7 +60,7 @@ public class TutorialLib implements ModInitializer {
     }
 
     @Override
-    public void onInitialize() {
+    public void onInitializeClient() {
         ClientTickEvents.END_WORLD_TICK.register(world -> {
             for (Tutorial tutorial : getTutorials()) {
                 if (tutorial.getCurrentStage() instanceof DelayedStage delayedStage
