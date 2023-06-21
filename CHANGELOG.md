@@ -1,3 +1,3 @@
 ## Changelog
 
-- Port to 1.19.4.
+- Fix final tutorial stage constantly triggering after it has already been finished.

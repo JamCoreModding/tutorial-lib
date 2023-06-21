@@ -62,18 +62,14 @@ public class Tutorial {
         this.stage = index;
     }
 
-    public boolean advanceStage() {
-        if (this.getCurrentStageIndex() + 1 >= this.stages.length) {
-            this.getCurrentStage().onFinish(this.getTutorialManager());
-            this.setCurrentStageIndex(this.getCurrentStageIndex() + 1);
-            return false;
-        }
-
+    public void advanceStage() {
         this.getCurrentStage().onFinish(this.getTutorialManager());
         this.setCurrentStageIndex(this.getCurrentStageIndex() + 1);
         this.saveGameOptions();
-        this.getCurrentStage().onStart(this.getTutorialManager());
-        return true;
+
+        if (this.getCurrentStageIndex() < this.stages.length) {
+            this.getCurrentStage().onStart(this.getTutorialManager());
+        }
     }
 
     public void setStageProgress(float progress) {
