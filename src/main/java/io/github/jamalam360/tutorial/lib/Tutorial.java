@@ -25,6 +25,8 @@
 package io.github.jamalam360.tutorial.lib;
 
 import io.github.jamalam360.tutorial.lib.stage.Stage;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.tutorial.TutorialManager;
 import org.jetbrains.annotations.ApiStatus;
@@ -35,6 +37,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * @see Stage
  */
+@Environment(EnvType.CLIENT)
 public class Tutorial {
 
     private final Stage[] stages;
