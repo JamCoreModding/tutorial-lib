@@ -25,6 +25,8 @@
 package io.github.jamalam360.tutorial.lib;
 
 import java.util.List;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.toast.Toast;
@@ -40,6 +42,7 @@ import org.jetbrains.annotations.Nullable;
  * A copy of {@link TutorialToast} which allows custom textures and dynamically expands to fit its content.
  * Textures must be 256x256.
  */
+@Environment(EnvType.CLIENT)
 public class CustomTutorialToast extends TutorialToast implements ToastDuck {
 
     private static final int TEXT_LEFT_MARGIN = 30;

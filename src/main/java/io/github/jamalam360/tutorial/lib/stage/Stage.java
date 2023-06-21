@@ -25,6 +25,8 @@
 package io.github.jamalam360.tutorial.lib.stage;
 
 import io.github.jamalam360.tutorial.lib.ToastDuck;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.toast.TutorialToast;
 import net.minecraft.client.tutorial.TutorialManager;
 import org.jetbrains.annotations.ApiStatus;
@@ -44,6 +46,7 @@ import org.jetbrains.annotations.ApiStatus;
  *     </li>
  * </ol>
  */
+@Environment(EnvType.CLIENT)
 public abstract class Stage {
 
     private final TutorialToast toast;

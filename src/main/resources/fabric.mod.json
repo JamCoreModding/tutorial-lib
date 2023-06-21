@@ -13,10 +13,10 @@
   },
   "license": "MIT",
   "icon": "assets/tutorial-lib/icon.png",
-  "environment": "*",
+  "environment": "client",
   "accessWidener": "tutoriallib.accesswidener",
   "entrypoints": {
-    "main": [
+    "client": [
       "io.github.jamalam360.tutorial.lib.TutorialLib"
     ]
   },
