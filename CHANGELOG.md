@@ -1,3 +1,3 @@
 ## Changelog
 
-- Fix final tutorial stage constantly triggering after it has already been finished.
+- Fix crash on dedicated servers.
